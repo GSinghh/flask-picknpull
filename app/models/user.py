@@ -9,3 +9,6 @@ class User(db.Model):
 
     def __repr__(self) -> str:
         return f"id: {self.id}, email: {self.email}, phone_number: {self.number}"
+
+    def serialize(self):
+        return {"id": self.id, "email": self.email, "number": self.number}
