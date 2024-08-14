@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Open+Sans:wght@300&family=Source+Code+Pro&display=swap");
+
+:root {
+    --background-color: rgb(246 247 251);
+    --light-text: rgb(179, 179, 179);
+    --dark-text: rgba(97, 96, 96, 0.435);
+    --hover-link: rgb(45, 109, 212);
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "comfortaa";
+}
+.container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 10% 90%;
+    background-color: var(--background-color);
+}
+
+.divider {
+    background-color: var(--dark-text);
+    height: 1px;
+    width: 100%;
+}
