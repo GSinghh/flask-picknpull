@@ -48,4 +48,4 @@ class Users(Resource):
             return {"Error": f"{e}"}
 
         
-api.add_resource(Users, "/Users")
+api.add_resource(Users, "/users")
