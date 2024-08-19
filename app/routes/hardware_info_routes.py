@@ -19,9 +19,9 @@ class MemoryInformation(Resource):
     def get(self):
         try:
             disk_usage = psutil.disk_usage('/')
-            total_usage = f"{disk_usage.total / (1024 ** 3):.2f}"
-            used_space = f"{disk_usage.used / (1024 ** 3):.2f}"
-            free_space = f"{disk_usage.free / (1024 ** 3):.2f}"
+            total_usage = f"{disk_usage.total / (1024 ** 3):.2f} GB"
+            used_space = f"{disk_usage.used / (1024 ** 3):.2f} GB"
+            free_space = f"{disk_usage.free / (1024 ** 3):.2f} GB"
             usage_percenage = f"{disk_usage.percent}%"
             
             
