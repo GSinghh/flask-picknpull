@@ -17,9 +17,11 @@ class Users(Resource):
             user = User(email=email, number=number)
             db.session.add(user)
             db.session.commit()
-            return {"Message": f"User with email: {email} and number: {number} added succesfully"}
+            return {"Message": f"User with email: {email} and number: {number} added succesfully",
+                    "response_code": 200}
         except Exception as e:
-            return {"Error": f"Exception: {e}"}
+            return {"Error": f"Exception: {e}", 
+                    "response_code": 500}
 
     def get(self):
         try:
@@ -27,9 +29,11 @@ class Users(Resource):
             if all_users:
                 return jsonify([user.serialize() for user in all_users])        
             else:
-                return {"Error": "Users not Found"}
+                return {"Error": "Users not Found",
+                        "response_code": 404}
         except Exception as e:
-            return {"Error": f"Exception: {e}"}
+            return {"Error": f"Exception: {e}", 
+                    "response_code": 500}
 
     def delete(self):
         try:
@@ -41,11 +45,13 @@ class Users(Resource):
             if found_user:
                 db.session.delete(found_user)
                 db.session.commit()
-                return {"Message": f"User with email: {email} and number: {number} deleted"}
+                return {"Message": f"User with email: {email} and number: {number} deleted",
+                        "response_code": 200}
             else:
-                return {"Error": "User Not Found"}
+                return {"Error": "User Not Found",
+                        "response_code": 404}
         except Exception as e:
-            return {"Error": f"{e}"}
+            return {"Error": f"{e}", "response_code": 500}
 
         
 api.add_resource(Users, "/users")

@@ -11,9 +11,11 @@ class CPUInformation(Resource):
             cpu_usage = psutil.cpu_percent(interval=1)
             cpu_freq = psutil.cpu_freq()
             load_avg = psutil.getloadavg()
-            return {"CPU Usage": cpu_usage, "CPU Freq": cpu_freq, "Avg Load": load_avg}
+            return {"CPU Usage": cpu_usage, "CPU Freq": cpu_freq, "Avg Load": load_avg, 
+                    "response_code": 200}
         except Exception as e:
-            return {"Error": f"Exception: {e}"}
+            return {"Error": f"Exception: {e}", 
+                    "response_code": 500}
         
 class MemoryInformation(Resource):
     def get(self):
@@ -38,10 +40,12 @@ class MemoryInformation(Resource):
                     "Available Memory": available_memory,
                     "Total Memory":total_memory,
                     "Used Memory": used_memory,
-                    "Memory Usage Percetange": memory_usage}
+                    "Memory Usage Percetange": memory_usage,
+                    "response_code": 200}
             
         except Exception as e:
-            return {"Error": f"Exception: {e}"}
+            return {"Error": f"Exception: {e}",
+                    "response_code": 500}
             
 api.add_resource(CPUInformation, "/cpu-info")
 api.add_resource(MemoryInformation, "/mem-info")
