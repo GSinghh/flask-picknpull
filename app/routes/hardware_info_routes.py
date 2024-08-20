@@ -11,7 +11,9 @@ class CPUInformation(Resource):
             cpu_usage = psutil.cpu_percent(interval=1)
             cpu_freq = psutil.cpu_freq()
             load_avg = psutil.getloadavg()
-            return {"CPU Usage": cpu_usage, "CPU Freq": cpu_freq, "Avg Load": load_avg, 
+            return {"CPU Usage": cpu_usage,
+                    "CPU Freq": cpu_freq,
+                    "Avg Load": load_avg, 
                     "response_code": 200}
         except Exception as e:
             return {"Error": f"Exception: {e}", 
