@@ -22,23 +22,13 @@ class CPUInformation(Resource):
 class MemoryInformation(Resource):
     def get(self):
         try:
-            disk_usage = psutil.disk_usage('/')
-            total_usage = f"{disk_usage.total / (1024 ** 3):.2f} GB"
-            used_space = f"{disk_usage.used / (1024 ** 3):.2f} GB"
-            free_space = f"{disk_usage.free / (1024 ** 3):.2f} GB"
-            usage_percenage = f"{disk_usage.percent}%"
-            
-            
             memory_info = psutil.virtual_memory()
             total_memory = f"{memory_info.total / (1024 ** 3):.2f} GB"
             available_memory = f"{memory_info.available / (1024 ** 3):.2f} GB"
             used_memory = f"{memory_info.used / (1024 ** 3):.2f} GB"
             memory_usage = f"{memory_info.percent}%"
                         
-            return {"Used Disk Space": used_space,
-                    "Free Disk Space":free_space,
-                    "Total Disk Space":total_usage,
-                    "Disk Usage Percentage":usage_percenage,
+            return {
                     "Available Memory": available_memory,
                     "Total Memory":total_memory,
                     "Used Memory": used_memory,
@@ -49,5 +39,24 @@ class MemoryInformation(Resource):
             return {"Error": f"Exception: {e}",
                     "response_code": 500}
             
+class DiskInformation(Resource):
+    def get(self):
+        try:
+            disk_usage = psutil.disk_usage('/')
+            total_usage = f"{disk_usage.total / (1024 ** 3):.2f} GB"
+            used_space = f"{disk_usage.used / (1024 ** 3):.2f} GB"
+            free_space = f"{disk_usage.free / (1024 ** 3):.2f} GB"
+            usage_percenage = f"{disk_usage.percent}%"
+            
+            return {"Used Disk Space": used_space,
+                    "Free Disk Space":free_space,
+                    "Total Disk Space":total_usage,
+                    "Disk Usage Percentage":usage_percenage,
+                    "Response Code": 200}
+        except Exception as e:
+            return {"Error": f"Exception: {e}",
+                    "response_code": 500}
+            
 api.add_resource(CPUInformation, "/cpu-info")
 api.add_resource(MemoryInformation, "/mem-info")
+api.add_resource(DiskInformation, "/disk-info")
