@@ -17,10 +17,10 @@ class Users(Resource):
             user = User(email=email, number=number)
             db.session.add(user)
             db.session.commit()
-            return {"Message": f"User with email: {email} and number: {number} added succesfully",
+            return {"message": f"User with email: {email} and number: {number} added succesfully",
                     "response_code": 200}
         except Exception as e:
-            return {"Error": f"Exception: {e}", 
+            return {"error": f"Exception: {e}", 
                     "response_code": 500}
 
     def get(self):
@@ -29,10 +29,10 @@ class Users(Resource):
             if all_users:
                 return jsonify([user.serialize() for user in all_users])        
             else:
-                return {"Error": "Users not Found",
+                return {"error": "Users not Found",
                         "response_code": 404}
         except Exception as e:
-            return {"Error": f"Exception: {e}", 
+            return {"error": f"Exception: {e}", 
                     "response_code": 500}
 
     def delete(self):

@@ -11,12 +11,12 @@ class CPUInformation(Resource):
             cpu_usage = psutil.cpu_percent(interval=1)
             cpu_freq = psutil.cpu_freq()
             load_avg = psutil.getloadavg()
-            return {"CPU Usage": cpu_usage,
-                    "CPU Freq": cpu_freq,
-                    "Avg Load": load_avg, 
+            return {"cpu_usage": cpu_usage,
+                    "cpu_freq": cpu_freq,
+                    "avg_load": load_avg, 
                     "response_code": 200}
         except Exception as e:
-            return {"Error": f"Exception: {e}", 
+            return {"error": f"Exception: {e}", 
                     "response_code": 500}
         
 class MemoryInformation(Resource):
@@ -29,14 +29,14 @@ class MemoryInformation(Resource):
             memory_usage = f"{memory_info.percent}%"
                         
             return {
-                    "Available Memory": available_memory,
-                    "Total Memory":total_memory,
-                    "Used Memory": used_memory,
-                    "Memory Usage Percetange": memory_usage,
+                    "available_memory": available_memory,
+                    "total_memory":total_memory,
+                    "used_memory": used_memory,
+                    "usage_percentage": memory_usage,
                     "response_code": 200}
             
         except Exception as e:
-            return {"Error": f"Exception: {e}",
+            return {"error": f"Exception: {e}",
                     "response_code": 500}
             
 class DiskInformation(Resource):
@@ -48,13 +48,13 @@ class DiskInformation(Resource):
             free_space = f"{disk_usage.free / (1024 ** 3):.2f} GB"
             usage_percenage = f"{disk_usage.percent}%"
             
-            return {"Used Disk Space": used_space,
-                    "Free Disk Space":free_space,
-                    "Total Disk Space":total_usage,
-                    "Disk Usage Percentage":usage_percenage,
-                    "Response Code": 200}
+            return {"used_space": used_space,
+                    "free_space":free_space,
+                    "total_space":total_usage,
+                    "usage_percentage":usage_percenage,
+                    "response_code": 200}
         except Exception as e:
-            return {"Error": f"Exception: {e}",
+            return {"error": f"Exception: {e}",
                     "response_code": 500}
             
 api.add_resource(CPUInformation, "/cpu-info")
