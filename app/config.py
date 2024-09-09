@@ -6,6 +6,8 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
+    CELERY_BACKEND_URL = 'redis://localhost'
+    CELERY_BROKER_URL = 'redis://localhost'
 
 
 class ProductionConfig(Config):
