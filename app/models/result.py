@@ -1,5 +1,6 @@
 from ..extensions import db
 from sqlalchemy import ForeignKey
+
 class Result(db.Model):
     __tablename__ = "results"
     id = db.Column(db.Integer, primary_key=True)
@@ -11,5 +12,6 @@ class Result(db.Model):
     date_added = db.Column(db.String, nullable=False)
     
     vehicle_id = db.Column(db.Integer, ForeignKey("vehicles.id"))
-    vehicle = db.relationship('Vehicle', back_populates='results')
+    vehicle = db.relationship('Vehicle', back_populates='results', uselist=False)
+    
     
