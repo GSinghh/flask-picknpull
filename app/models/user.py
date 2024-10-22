@@ -15,5 +15,11 @@ class User(db.Model):
     def serialize(self):
         return {"id": self.id, "email": self.email, "number": self.number}
     
-    def getIDByUser(self, number):
-        return self.id if number == self.number else None
+    @classmethod
+    def get_id_by_number(cls, number):
+        try:
+            data = cls.query.filter_by(number=number).first()
+            return data.id
+        except Exception as e:
+            return {"error:" f"An error occured: {e}"}
+        
