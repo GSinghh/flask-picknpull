@@ -2,8 +2,6 @@ import os
 
 
 class Config(object):
-    DEBUG = False
-    TESTING = False
     CSRF_ENABLED = True
     SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
     CELERY_BACKEND_URL = 'redis://localhost'
