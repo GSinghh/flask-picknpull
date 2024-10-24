@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from flask_restful import Api, Resource
 from ..models.vehicle import Vehicle
 from ..models.user import User
@@ -12,9 +12,9 @@ class Vehicles(Resource):
     def get(self):
         try:
             data = request.get_json()
-            number = data.get("number")
+            number = data['number']
             user_id = User.get_id_by_number(number)
-            vehicles = Vehicle.getVehicles(user_id)
+            vehicles = Vehicle.get_vehicles_by_id(user_id)
             return {"Vehicles": f"Vehicles: {vehicles}"}
         except Exception as e:
             return {"error": f"An error occured: {e}"}
@@ -23,23 +23,25 @@ class Vehicles(Resource):
         try:
             data = request.get_json()
             
-            number = data.get("number")
+            number = data['number']
             user_id = User.get_id_by_number(number)
             
-            start_year = data.get("start_year")
-            end_year = data.get("end_year")
-            postal_code = data.get("postal_code")
-            distance = data.get("distance")
-            make = data.get("make")
-            model = data.get("model")
-            
+            start_year = data['start_year']
+            end_year = data['end_year']
+            postal_code = data['postal_code']
+            distance = data['distance']
+            make = data['make']
+            model = data['model']            
             vehicle = Vehicle(start_year=start_year, end_year=end_year, postal_code=postal_code, distance=distance, make=make, model=model, user_id=user_id)
             db.session.add(vehicle)
             db.session.commit()
             
-            return {"message": f"{start_year + " " +  end_year} {make} {model} Added"}
+            return {"message": f"{vehicle.validate_years(start_year, end_year)} {make} {model} Added"}
+        except KeyError as key: 
+            return {"Key Error": f"{key} not found"}
         except Exception as e:
             return {"error": f"Error Occured: {e}"}
+        
     
     def delete(self):
         pass
