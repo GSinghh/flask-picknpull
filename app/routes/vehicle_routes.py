@@ -19,6 +19,7 @@ class Vehicles(Resource):
                 return {"Message": "No Vehicles Found"}
             else:
                 return {"Current Vehicles": f"Vehicles: {vehicles}"} 
+            
         except KeyError as key: 
             return {"Key Error": f"{key} not found"}    
         except Exception as e:
@@ -49,6 +50,22 @@ class Vehicles(Resource):
         
     
     def delete(self):
-        pass
+        try:
+            data = request.get_json()
+        
+            id_of_vehicle = data['id_of_vehicle']
+            vehicle_to_delete = Vehicle.query.filter_by(id = id_of_vehicle).first()
+            if vehicle_to_delete:
+                db.session.delete(vehicle_to_delete)
+                db.session.commit()
+                return {"Message": f"Vehicle with id {id_of_vehicle} deleted"}
+            else:
+                return {"Error": f"Vehicle not found within database"}
+            
+        except KeyError as key: 
+            return {"Key Error": f"{key} not found"}
+        except Exception as e:
+            return {"error": f"Error Occured: {e}"}
+            
     
 api.add_resource(Vehicles, "/vehicles")
