@@ -12,8 +12,10 @@ class Vehicles(Resource):
     def get(self):
         try:
             data = request.get_json()
+            
             number = data['number']
             user_id = User.get_id_by_number(number)
+            
             vehicles = Vehicle.get_vehicles_by_id(user_id)
             if not vehicles:
                 return {"Message": "No Vehicles Found"}
@@ -37,7 +39,8 @@ class Vehicles(Resource):
             postal_code = data['postal_code']
             distance = data['distance']
             make = data['make']
-            model = data['model']            
+            model = data['model']   
+                     
             vehicle = Vehicle(start_year=start_year, end_year=end_year, postal_code=postal_code, distance=distance, make=make, model=model, user_id=user_id)
             db.session.add(vehicle)
             db.session.commit()
