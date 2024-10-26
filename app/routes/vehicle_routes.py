@@ -15,7 +15,12 @@ class Vehicles(Resource):
             number = data['number']
             user_id = User.get_id_by_number(number)
             vehicles = Vehicle.get_vehicles_by_id(user_id)
-            return {"Vehicles": f"Vehicles: {vehicles}"}
+            if not vehicles:
+                return {"Message": "No Vehicles Found"}
+            else:
+                return {"Current Vehicles": f"Vehicles: {vehicles}"} 
+        except KeyError as key: 
+            return {"Key Error": f"{key} not found"}    
         except Exception as e:
             return {"error": f"An error occured: {e}"}
             
