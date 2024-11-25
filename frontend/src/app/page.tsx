@@ -1,3 +1,5 @@
+"use client";
+
 import { AppSidebar } from "@/components/app-sidebar";
 import { BrainCog, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,10 +22,13 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-import { CPUPieChart } from "@/components/CPUPieChart";
+import { MemoryPieChart } from "@/components/MemoryPieChart";
 import { MemoryUsage } from "@/components/MemoryUsage";
+import { usePathname } from "next/navigation";
 
 export default function Page() {
+    const pathName = usePathname();
+    console.log(pathName);
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -63,14 +68,14 @@ export default function Page() {
                 <div className="flex flex-1 flex-col gap-4 p-4">
                     <div className="grid auto-rows-min gap-4 md:grid-cols-3">
                         <div className="col-span-2">
-                            <CPUPieChart />
+                            <MemoryPieChart />
                         </div>
                         <MemoryUsage />
                     </div>
                     <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                        <CPUPieChart />
+                        {/* <MemoryPieChart /> */}
                         <div className="col-span-2">
-                            <CPUPieChart />
+                            {/* <MemoryPieChart /> */}
                         </div>
                     </div>
                 </div>
