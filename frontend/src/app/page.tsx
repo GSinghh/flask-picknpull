@@ -65,17 +65,19 @@ export default function Page() {
                         </Button>
                     </div>
                 </header>
-                <div className="flex flex-1 flex-col gap-4 p-4">
-                    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                        <div className="col-span-2">
+                <div className="grid grid-rows-2 gap-4 p-4 h-full">
+                    <div className="grid md:grid-cols-5 gap-4">
+                        <div className="col-span-2 h-full">
                             <MemoryPieChart />
                         </div>
-                        <MemoryUsage />
+                        <div className="col-span-3 h-full">
+                            <MemoryPieChart />
+                        </div>
                     </div>
                     <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                        {/* <MemoryPieChart /> */}
+                        <MemoryPieChart />
                         <div className="col-span-2">
-                            {/* <MemoryPieChart /> */}
+                            <MemoryPieChart />
                         </div>
                     </div>
                 </div>
